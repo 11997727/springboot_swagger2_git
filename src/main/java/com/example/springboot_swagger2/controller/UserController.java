@@ -5,8 +5,10 @@ import com.example.springboot_swagger2.model.Result;
 import com.example.springboot_swagger2.model.User;
 import com.example.springboot_swagger2.service.UserService;
 import io.swagger.annotations.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
@@ -18,7 +20,7 @@ import javax.annotation.Resource;
  * @Description:
  * @date 2020/1/6 星期一 17:01
  */
-@RestController
+@Controller
 @Api(tags="这是吴成卓写的类")
 public class UserController {
     @Resource
@@ -33,8 +35,9 @@ public class UserController {
             @ApiResponse(code = 4,message = "failed"),
             @ApiResponse(code = 0,message = "success")
     })
-    @PostMapping("/login")
-    public String login(String account,String password){
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @ResponseBody
+    public Result login(String account,String password){
         User user = userService.queryAccountAndPassword(account, password);
         Result result = new Result();
         if(user==null){
@@ -45,6 +48,6 @@ public class UserController {
             result.setMsg("success");
             result.setData(JSON.toJSONString(user));
         }
-        return JSON.toJSONString(result);
+        return result;
     }
 }

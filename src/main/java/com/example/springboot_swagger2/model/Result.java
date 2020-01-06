@@ -1,5 +1,7 @@
 package com.example.springboot_swagger2.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +17,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(description = "返回的对象")
 public class Result {
+    @ApiModelProperty(value = "状态码")
     private Integer code;
+    @ApiModelProperty(value = "状态信息")
     private String msg;
+    @ApiModelProperty(value = "结果")
     private String data;
 }
